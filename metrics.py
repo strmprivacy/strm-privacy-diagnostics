@@ -6,8 +6,8 @@ from pandas.api.types import is_numeric_dtype
 from pandas.api.types import is_string_dtype
 
 
-def k_anonymity(df: pd.DataFrame, qi: list) -> list:
-    return df[qi].value_counts().values
+def k_anonymity(df: pd.DataFrame, qi: list) -> pd.Series:
+    return df[qi].value_counts()
 
 
 def l_diversity(df: pd.DataFrame, qi: list, s: list) -> dict:
