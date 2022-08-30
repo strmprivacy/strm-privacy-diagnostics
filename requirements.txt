@@ -1,2 +1,10 @@
-pandas
-numpy
+pandas~=1.4.3
+numpy~=1.23.2
+matplotlib~=3.5.3
+fpdf~=1.7.2
+temp
+argparse~=1.4.0
+logging
+pathlib~=1.0.1
+collections
+seaborn~=0.11.2
