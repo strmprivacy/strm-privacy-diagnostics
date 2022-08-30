@@ -21,7 +21,6 @@ def main(args: dict):
     df['indexed_row'] = df.index.values
     assert_columns(df, qi + sa)
     calculate_stats(df, qi, sa, sa_types, metrics, args['report_path'])
-    return 0
 
 
 def assert_arguments(qi: list[str], sa: list[str], sa_types: list[str]):
