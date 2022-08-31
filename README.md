@@ -1,12 +1,10 @@
 # STRM Privacy Diagnostics
 
----
 
 This package contains diagnostics for you data, by means of k-Anonymity, l-Diversity and t-Closeness
 
 ## Installation
 
-----    
 
 ```
 pip install strmprivacy
@@ -14,7 +12,6 @@ pip install strmprivacy
 
 ## Usage
 
- ----
 
 ```python
 from strmprivacy.diagnostics import PrivacyDiagnostics
