@@ -21,7 +21,8 @@ def plot(df: pd.DataFrame, k: list[str], metric: str, tmpdir: str):
     plt.legend(fontsize=16)
     plt.xticks(fontsize=16)
     plt.yticks(fontsize=16)
-    plt.savefig(str(Path(tmpdir, f'{metric}.png')))
+    plt.close(fig)
+    fig.savefig(str(Path(tmpdir, f'{metric}.png')))
 
 
 def plot_k_anonymity(df: pd.DataFrame, k: pd.Series, tmpdir: str):

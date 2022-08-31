@@ -18,10 +18,31 @@ class Report(FPDF):
         # Line break
         self.ln(20)
 
+    def summation(self, k, l, t):
+        self.set_font('Inter', size=8)
+        i = 1
+        if k is not None:
+            self.write(h=5, txt=f"{i}. Your data has a k-Anonymity of {min(k)}")
+            self.ln(5)
+            i += 1
+        if l is not None:
+            self.write(h=5, txt=f"{i}.  l-Diversity minimal distinct values per equivalence group: " +
+                                ', '.join([f"{key}: {min(value)}" for key, value in l.items()]))
+            self.ln(5)
+            i += 1
+        if t is not None:
+            self.write(h=5, txt=f"{i}. Your data has a t-Closeness of {t:.4f}")
+            self.ln(5)
+        self.ln(5)
+
     def plots(self, metric):
         width = self.w * 0.7
         height = width * 2 / 3
-        self.image(str(Path(self.tmpdir, f'{metric}.png')), w=width, h=height)
+        x = (self.w - width) // 2
+        y = self.y
+        if y + height > self.h:
+            self.add_page()
+        self.image(str(Path(self.tmpdir, f'{metric}.png')), x=x, w=width, h=height)
 
     def k_metrics(self, k):
         self.set_font('Inter', size=12)
@@ -75,9 +96,10 @@ class Report(FPDF):
         self.ln(15)
 
     def create(self, k, l, t, path='.'):
-        self.add_font('Inter', fname='report/Inter-V.ttf', uni=True)
+        self.add_font('Inter', fname='strmprivacy/diagnostics/report/Inter-V.ttf', uni=True)
         self.accept_page_break()
         self.add_page()
+        self.summation(k, l, t)
         if k is not None:
             self.k_metrics(k)
         if l is not None:
