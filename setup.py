@@ -16,7 +16,7 @@ setup(
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
     ],
-    description="STRM Privacy Diagnostics for reporting privacy metrics on a dataset",
+    description="STRM Privacy Diagnostics for reporting privacy metrics on a dataset.",
     install_requires=[
         "pandas>=1.4.3",
         "numpy>=1.23.2",
@@ -28,6 +28,7 @@ setup(
         "seaborn>=0.11.2",
     ],
     long_description=readme,
+    long_description_content_type='text/markdown',
     include_package_data=True,
     keywords='strmprivacy privacy diagnostics',
     name='strmprivacy-diagnostics',
