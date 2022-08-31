@@ -7,7 +7,7 @@ This package contains diagnostics for you data, by means of k-Anonymity, l-Diver
 
 
 ```
-pip install strmprivacy
+pip install strmprivacy-diagnostics
 ```
 
 ## Usage
