@@ -1,0 +1,94 @@
+{
+  "devDependencies": {
+    "@commitlint/config-conventional": "^12.1.1",
+    "@google/semantic-release-replace-plugin": "^1.0.2",
+    "@semantic-release/changelog": "5.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/git": "9.0.0",
+    "@semantic-release/github": "^7.2.3",
+    "commitlint": "12.1.1",
+    "conventional-changelog-conventionalcommits": "4.5.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "gradle-semantic-release-plugin": "1.4.17",
+    "husky": "^6.0.0",
+    "semantic-release": "17.4.2"
+  },
+  "scripts": {
+    "postinstall": "husky install",
+    "semantic-release": "semantic-release"
+  },
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      [
+        "@google/semantic-release-replace-plugin",
+        {
+          "replacements": [
+            {
+              "files": [
+                "setup.py"
+              ],
+              "from": "version\\s?=\\s?'.*'",
+              "to": "version='${nextRelease.version}'",
+              "results": [
+                {
+                  "file": "setup.py",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                }
+              ],
+              "countMatches": true
+            },
+            {
+              "files": [
+                "strmprivacy/diagnostics/__init__.py"
+              ],
+              "from": "__version__\\s?=\\s?'.*'",
+              "to": "__version__ = '${nextRelease.version}'",
+              "results": [
+                {
+                  "file": "strmprivacy/diagnostics/__init__.py",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                }
+              ],
+              "countMatches": true
+            }
+          ]
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}",
+          "assets": [
+            "setup.py",
+            "strmprivacy/diagnostics/__init__.py",
+            "CHANGELOG.md"
+          ]
+        }
+      ],
+      "@semantic-release/github"
+    ]
+  },
+  "engines": {
+    "node": "^18.4.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}

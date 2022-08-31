@@ -1,0 +1,28 @@
+name: Pull Request Build
+
+on:
+  push:
+    branches-ignore:
+      - "master"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python 3.9
+          uses: actions/setup-python@v2
+          with:
+              python-version: "3.9"
+        - name: Install dependencies
+          run: |
+              python -m pip install --upgrade pip
+              python -m pip install -r requirements.txt
+        - name: Build
+          run: |
+              python setup.py sdist
+              python setup.py bdist_wheel
