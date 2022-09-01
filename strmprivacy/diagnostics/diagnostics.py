@@ -16,7 +16,7 @@ class PrivacyDiagnostics:
             self.df = self.df.sample(n=int(sample), random_state=0).reset_index(drop=True)
         self.df['indexed_row'] = self.df.index.values
 
-    def calculate_stats(self, qi: list[str], sa: list[str], sa_types: list[str] = [],
+    def calculate_stats(self, qi: list[str], sa: list[str], sa_types=[],
                         metrics=['k_anonymity', 'l_diversity', 't_closeness']):
         self.assert_arguments(qi, sa, sa_types, metrics)
         self.assert_columns(qi + sa)
@@ -30,8 +30,9 @@ class PrivacyDiagnostics:
 
     def create_report(self, qi: list[str], sa: list[str], sa_types: list[str] = [],
                       metrics=['k_anonymity', 'l_diversity', 't_closeness'], path: str = '.'):
-        if ('k_anomyity' in metrics and self.k is None) or ('l_diversity' in metrics and self.l is None) or (
-                't_closeness' in metrics and self.t is None):
+        if ('k_anomyity' in metrics and self.k is None) or \
+                ('l_diversity' in metrics and self.l is None) or \
+                ('t_closeness' in metrics and self.t is None):
             self.calculate_stats(qi, sa, sa_types, metrics)
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -46,7 +47,7 @@ class PrivacyDiagnostics:
 
     def assert_columns(self, columns: list[str]):
         for column in columns:
-            assert column in self.df.columns, f"Column {column} does not exist in the given dataset"
+            assert column in self.df.columns, f"Column '{column}' does not exist in the given dataset"
 
     @staticmethod
     def assert_arguments(qi: list[str], sa: list[str], sa_types: list[str] = [],
@@ -54,7 +55,7 @@ class PrivacyDiagnostics:
         if len(sa_types) > 0:
             assert len(sa_types) == len(sa), "Length of sa-types doesn't equal length of sa. " \
                                              "Either leave empty or set all data types explicitly."
-            assert all(x in ["cat", "num"] for x in sa_types), "Wrong type given for sensitive attribute." \
+            assert all(x in ["cat", "num"] for x in sa_types), "Wrong type given for sensitive attribute. " \
                                                                "Valid types: [cat, num]"
         else:
             logging.warning("No sensitive attribute type was defined. Types will be inferred.")
