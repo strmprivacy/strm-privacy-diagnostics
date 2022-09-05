@@ -3,34 +3,36 @@ from strmprivacy.diagnostics import PrivacyDiagnostics
 
 
 class MyTestCase(unittest.TestCase):
-    d = PrivacyDiagnostics("datasets/simpleset.csv")
-
     def test_happy_flow_1qi_1sa(self):
-        d = self.d
+        d = PrivacyDiagnostics("datasets/simpleset.csv")
         d.calculate_stats(
             qi=['col3'],
             sa=['col1'],
+            metrics=['k_anonymity', 'l_diversity', 't_closeness']
         )
         self.assertEqual(4, min(d.k), "k-anonymity for 'col3' is incorrect")
         self.assertEqual(2, min(d.l['col1']), "l-diversity for 'col1' is incorrect")
         self.assertAlmostEqual(0.23333, d.t, 4)
 
     def test_happy_flow_2qi_1sa(self):
-        d = self.d
+        d = PrivacyDiagnostics("datasets/simpleset.csv")
         d.calculate_stats(
             qi=['col3', 'col4'],
             sa=['col1'],
+            metrics=['k_anonymity', 'l_diversity', 't_closeness']
         )
         self.assertEqual(2, min(d.k), "k-anonymity for ['col3', 'col4'] is incorrect")
         self.assertEqual(2, min(d.l['col1']), "l-diversity for 'col1' is incorrect")
         self.assertAlmostEqual(0.43333, d.t, 4)
 
     def test_happy_flow_1qi_2sa(self):
-        d = self.d
+        d = PrivacyDiagnostics("datasets/simpleset.csv")
         sa = ['col1', 'col2']
         d.calculate_stats(
             qi=['col4'],
-            sa=sa
+            sa=sa,
+            sa_types=['cat', 'num'],
+            metrics=['k_anonymity', 'l_diversity', 't_closeness']
         )
         self.assertEqual(14, min(d.k), "k-anonymity for ['col3'] is incorrect")
         self.assertEqual(3, min(d.l['col1']), f"l-diversity for 'col1' is incorrect")
@@ -38,11 +40,12 @@ class MyTestCase(unittest.TestCase):
         self.assertAlmostEqual(0.05238, d.t, 4)
 
     def test_non_existing_qi(self):
-        d = self.d
+        d = PrivacyDiagnostics("datasets/simpleset.csv")
         with self.assertRaises(AssertionError) as context:
             d.calculate_stats(
                 qi=['non-existent'],
-                sa=['col1']
+                sa=['col1'],
+                metrics=['k_anonymity', 'l_diversity', 't_closeness']
             )
         self.assertIn(
             "Column 'non-existent' does not exist in the given dataset",
@@ -50,7 +53,7 @@ class MyTestCase(unittest.TestCase):
         )
 
     def test_sa_types_not_matching_sa_len(self):
-        d = self.d
+        d = PrivacyDiagnostics("datasets/simpleset.csv")
         with self.assertRaises(AssertionError) as context:
             d.calculate_stats(
                 qi=['non-existent'],
@@ -63,7 +66,7 @@ class MyTestCase(unittest.TestCase):
         )
 
     def test_sa_types_not_valid(self):
-        d = self.d
+        d = PrivacyDiagnostics("datasets/simpleset.csv")
         with self.assertRaises(AssertionError) as context:
             d.calculate_stats(
                 qi=['non-existent'],
@@ -76,7 +79,7 @@ class MyTestCase(unittest.TestCase):
         )
 
     def test_empty_qi(self):
-        d = self.d
+        d = PrivacyDiagnostics("datasets/simpleset.csv")
         with self.assertRaises(AssertionError) as context:
             d.calculate_stats(
                 qi=[],
@@ -88,7 +91,7 @@ class MyTestCase(unittest.TestCase):
         )
 
     def test_empty_sa(self):
-        d = self.d
+        d = PrivacyDiagnostics("datasets/simpleset.csv")
         with self.assertRaises(AssertionError) as context:
             d.calculate_stats(
                 qi=['col1'],
@@ -100,7 +103,7 @@ class MyTestCase(unittest.TestCase):
         )
 
     def test_unknown_metric(self):
-        d = self.d
+        d = PrivacyDiagnostics("datasets/simpleset.csv")
         with self.assertRaises(AssertionError) as context:
             d.calculate_stats(
                 qi=['col1'],

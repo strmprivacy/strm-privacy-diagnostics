@@ -2,6 +2,8 @@ import argparse
 import logging
 import tempfile
 
+from pandas.core.dtypes.common import is_string_dtype, is_numeric_dtype
+
 from strmprivacy.diagnostics.metrics import *
 from strmprivacy.diagnostics.report.report import Report
 from strmprivacy.diagnostics.plots import plot_l_diversity, plot_k_anonymity
@@ -23,6 +25,14 @@ class PrivacyDiagnostics:
         self.assert_arguments(qi, sa, sa_types, metrics)
         self.assert_columns(qi + sa)
 
+        if len(sa_types) == 0:
+            for s in sa:
+                if is_string_dtype(self.df[s]):
+                    sa_types.append('cat')
+                elif is_numeric_dtype(self.df[s]):
+                    sa_types.append('num')
+                else:
+                    raise TypeError(f"Cannot infer type of column '{s}'")
         # k-Anonymity
         self.k = k_anonymity(self.df, qi) if 'k_anonymity' in metrics else None
         # l-Diversity
