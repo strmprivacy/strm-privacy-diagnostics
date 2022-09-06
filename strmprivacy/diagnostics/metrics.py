@@ -34,8 +34,8 @@ def t_closeness_num(df: pd.DataFrame, qi: list[str], s: str) -> float:
     values = df[s]
     max_distance = max(values) - min(values)
     for ec in equivalence_classes:
-        qvalues = df.iloc[ec][s]
-        emd_max = max(emd_max, wd(values, qvalues) / max_distance)
+        q_values = df.iloc[ec][s]
+        emd_max = max(emd_max, wd(values, q_values) / max_distance)
     return emd_max
 
 
