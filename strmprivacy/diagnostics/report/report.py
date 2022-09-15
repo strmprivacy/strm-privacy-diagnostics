@@ -18,6 +18,14 @@ class Report(FPDF):
         # Line break
         self.ln(20)
 
+    def intro(self):
+        self.set_font('Inter', style="i", size=10)
+        self.write(h=5, txt=f"Using this report, you can assess if the data you are transforming is fit-for-purpose."
+            " K-anonimity, and l-diversity are methods to assess the degree of anonimity in a given dataset. T-closeness inidicates the information loss in your data, and so its utility."
+            " The methods look at how unique a combination of datapoints is, giving you insight into the risk of re-identification: the less unique, the lower the probability you can find a single individual in the data."
+            " Therefore, generally speaking, higher scores are better: they indicate it's harder to find a single individual in your data."
+        self.ln(5)
+    
     def summation(self, k, l, t):
         self.set_font('Inter', size=8)
         i = 1
@@ -31,9 +39,10 @@ class Report(FPDF):
             self.ln(5)
             i += 1
         if t is not None:
-            self.write(h=5, txt=f"{i}. Your data has a t-Closeness of {t:.4f}")
+            self.write(h=5, txt=f"{i}. Your data has a t-Closeness of  {t:.4f}")
             self.ln(5)
-        self.ln(5)
+        
+        
 
     def plots(self, metric):
         width = self.w * 0.7
@@ -49,11 +58,13 @@ class Report(FPDF):
         self.write(h=5, txt="k-Anonymity")
         self.ln(5)
         self.set_font('Inter', size=8)
-        self.write(h=5, txt=f'Your data has a k-Anonymity of {min(k)}')
+        self.write(h=5, txt=f'Your data has a k-Anonymity of  {min(k)}')
         self.ln(10)
         self.write(
             h=5,
-            txt="The graph below should be read as follows. The unique rows line (blue) indicates what percentage of "
+            txt="K-anonymity indicates if you can isolate a given data subject, based on how many equal groups can be found in the data. "
+                "Any K of or above 2 indicates at least two indivduals belong to any group inside the data."
+                "The graph below should be read as follows. The unique rows line (blue) indicates what percentage of "
                 "the total rows (y-axis) you will lose to achieve every k-Anonymity level (x-axis), "
                 "without transforming data. The loss in unique equivalence groups line (orange) indicates the "
                 "percentage of unique combinations of the values in the quasi identifier columns (y-axis) you will "
@@ -76,7 +87,9 @@ class Report(FPDF):
         self.ln(5)
         self.write(
             h=5,
-            txt="The graphs below should be read as follows. The unique rows line (blue) indicates what percentage of "
+            txt="L-diversity extends k-anonymity by also looking at every attribute in each equivalence class (the group of equal attributes in your data). "
+                "A higher L indicates higher variability in each class, so that attempts for re-identification always yield sufficient uncertainty on the exact individual within that class. "
+                "The graphs below should be read as follows. The unique rows line (blue) indicates what percentage of "
                 "the total rows (y-axis) you will lose to achieve every l-Diversity level (x-axis) for each sensitive "
                 "attribute individually. The loss in unique equivalence groups line (orange) indicates the percentage "
                 "of unique combinations of the values in the quasi identifier columns (y-axis) you will lose to "
@@ -92,7 +105,10 @@ class Report(FPDF):
         self.write(h=5, txt="t-Closeness")
         self.ln(5)
         self.set_font('Inter', size=8)
-        self.write(h=5, txt=f"Your data has a t-closeness of: {t:.4f}")
+        self.write(h=5, txt="T-closeness indicates how close the data in each L-diverse group is to the original data, and so how much utility is retained inside the data. "
+            " A T closer to 1 indicates the data is (statistically) closer to the input data.")
+        self.ln(5)
+        self.write(h=5, txt=f"Your data has a t-closeness of  {t:.4f}")
         self.ln(15)
 
     def create(self, k, l, t, path='.'):
@@ -106,6 +122,6 @@ class Report(FPDF):
             self.l_metrics(l)
         if t is not None:
             self.t_metrics(t)
-        Path(path, 'report.py')
+        Path(path, 'STRM-privacy-report.py')
         self.output(str(Path(path, 'report.pdf')), 'F')
         print(f"Report saved to {Path(path, 'report.pdf')}")
