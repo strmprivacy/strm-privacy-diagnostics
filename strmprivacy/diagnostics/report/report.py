@@ -21,13 +21,15 @@ class Report(FPDF):
     def intro(self):
         self.set_font('Inter', style="i", size=10)
         self.write(h=5, txt=f"Using this report, you can assess if your privacy transformations are fit-for-purpose."
-            " K-anonimity, and l-diversity are methods to assess the degree of anonimity in a given dataset. T-closeness inidicates the information loss in your data, and so its utility."
-            " The methods look at how unique a combination of datapoints is, giving you insight into the risk of re-identification: the less unique, the lower the probability you can find a single individual in the data."
-            " Therefore, generally speaking, higher scores are better: they indicate it's harder to find a single individual in your data."
+                            " K-anonymity, and l-diversity are methods to assess the degree of anonymity in a given dataset. T-closeness indicates the information loss in your data, and so its utility."
+                            " The methods look at how unique a combination of datapoints is, giving you insight into the risk of re-identification: the less unique, the lower the probability you can find a single individual in the data."
+                            " Therefore, generally speaking, higher scores are better: they indicate it's harder to find a single individual in your data."
+                   )
         self.ln(5)
-    
+
     def summation(self, k, l, t):
         self.set_font('Inter', size=8)
+
         i = 1
         if k is not None:
             self.write(h=5, txt=f"{i}. Your data has a k-Anonymity of {min(k)}")
@@ -39,10 +41,8 @@ class Report(FPDF):
             self.ln(5)
             i += 1
         if t is not None:
-            self.write(h=5, txt=f"{i}. Your data has a t-Closeness of  {t:.4f}")
+            self.write(h=5, txt=f"{i}. Your data has a t-Closeness of {t:.4f}")
             self.ln(5)
-        
-        
 
     def plots(self, metric):
         width = self.w * 0.7
@@ -105,8 +105,9 @@ class Report(FPDF):
         self.write(h=5, txt="t-Closeness")
         self.ln(5)
         self.set_font('Inter', size=8)
-        self.write(h=5, txt="T-closeness indicates how close the data in each L-diverse group is to the original data, and so how much utility is retained inside the data. "
-            " A T closer to 1 indicates the data is (statistically) closer to the input data.")
+        self.write(h=5,
+                   txt="T-closeness indicates how close the data in each L-diverse group is to the original data, and so how much utility is retained inside the data. "
+                       " A T closer to 1 indicates the data is (statistically) closer to the input data.")
         self.ln(5)
         self.write(h=5, txt=f"Your data has a t-closeness of  {t:.4f}")
         self.ln(15)
@@ -122,6 +123,7 @@ class Report(FPDF):
             self.l_metrics(l)
         if t is not None:
             self.t_metrics(t)
-        Path(path, 'STRM-privacy-report.py')
-        self.output(str(Path(path, 'report.pdf')), 'F')
-        print(f"Report saved to {Path(path, 'report.pdf')}")
+        Path(path, 'report.py')
+        file_path = Path(path, 'STRM-Privacy-report.pdf')
+        self.output(str(file_path), 'F')
+        print(f"Report saved to {file_path}")
