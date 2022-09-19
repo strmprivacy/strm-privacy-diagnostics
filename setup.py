@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from setuptools import setup, find_namespace_packages, find_packages
+from setuptools import setup, find_namespace_packages
 
 with open('README.md') as readme_file:
     readme = readme_file.read()
