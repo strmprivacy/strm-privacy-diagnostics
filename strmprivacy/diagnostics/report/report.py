@@ -10,7 +10,10 @@ class Report(FPDF):
 
     def header(self):
         # Arial bold 15
-        self.set_font('Inter', size=15)
+        try:
+            self.set_font('Inter', size=15)
+        except:
+            self.set_font('arial', size=15)
         # Move to the right
         self.cell(80)
         # Title
@@ -28,7 +31,10 @@ class Report(FPDF):
         self.ln(5)
 
     def summation(self, k, l, t):
-        self.set_font('Inter', size=8)
+        try:
+            self.set_font('Inter', size=8)
+        except:
+            self.set_font('arial', size=8)
 
         i = 1
         if k is not None:
@@ -54,10 +60,16 @@ class Report(FPDF):
         self.image(str(Path(self.tmpdir, f'{metric}.png')), x=x, w=width, h=height)
 
     def k_metrics(self, k):
-        self.set_font('Inter', size=12)
+        try:
+            self.set_font('Inter', size=12)
+        except:
+            self.set_font('arial', size=12)
         self.write(h=5, txt="k-Anonymity")
         self.ln(5)
-        self.set_font('Inter', size=8)
+        try:
+            self.set_font('Inter', size=8)
+        except:
+            self.set_font('arial', size=8)
         self.write(h=5, txt=f'Your data has a k-Anonymity of  {min(k)}')
         self.ln(10)
         self.write(
@@ -75,10 +87,16 @@ class Report(FPDF):
         self.ln(15)
 
     def l_metrics(self, l):
-        self.set_font('Inter', size=12)
+        try:
+            self.set_font('Inter', size=12)
+        except:
+            self.set_font('arial', size=12)
         self.write(h=5, txt="l-Diversity")
         self.ln(5)
-        self.set_font('Inter', size=8)
+        try:
+            self.set_font('Inter', size=8)
+        except:
+            self.set_font('arial', size=8)
         self.write(h=5, txt="Minimal distinct values per equivalence group:")
         self.ln(5)
         for k, v in l.items():
@@ -101,10 +119,16 @@ class Report(FPDF):
             self.ln(10)
 
     def t_metrics(self, t):
-        self.set_font('Inter', size=12)
+        try:
+            self.set_font('Inter', size=12)
+        except:
+            self.set_font('arial', size=12)
         self.write(h=5, txt="t-Closeness")
         self.ln(5)
-        self.set_font('Inter', size=8)
+        try:
+            self.set_font('Inter', size=8)
+        except:
+            self.set_font('arial', size=8)
         self.write(h=5,
                    txt="T-closeness indicates how close the data in each L-diverse group is to the original data, and so how much utility is retained inside the data. "
                        " A T closer to 1 indicates the data is (statistically) closer to the input data.")
