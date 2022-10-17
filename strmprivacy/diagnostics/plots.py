@@ -10,9 +10,9 @@ sns.set()
 def plot(df: pd.DataFrame, k: list[str], metric: str, tmpdir: str):
     fig = plt.figure(figsize=(12, 8))
     sorted_uniques = list(sorted(np.unique(k)))
-    plt.plot([0] + sorted_uniques, [0] + list(np.cumsum([sum(x == k) * x for x in sorted_uniques]) * 100 / len(df)),
+    plt.plot([min(sorted_uniques)] + sorted_uniques, [0] + list(np.cumsum([sum(x == k) * x for x in sorted_uniques]) * 100 / len(df)),
              label='unique rows loss')
-    plt.plot([0] + sorted_uniques, [0] + list(np.cumsum([sum(x == k) for x in sorted_uniques]) * 100 / len(k)),
+    plt.plot([min(sorted_uniques)] + sorted_uniques, [0] + list(np.cumsum([sum(x == k) for x in sorted_uniques]) * 100 / len(k)),
              label='unique equivalence group loss')
 
     fig.suptitle(f'{metric} vs. Data Loss', fontsize=24)
@@ -21,6 +21,8 @@ def plot(df: pd.DataFrame, k: list[str], metric: str, tmpdir: str):
     plt.legend(fontsize=16)
     plt.xticks(fontsize=16)
     plt.yticks(fontsize=16)
+    plt.xlim(left=-10)
+    plt.ylim(bottom=-10)
     plt.close(fig)
     fig.savefig(str(Path(tmpdir, f'{metric}.png')))
 
