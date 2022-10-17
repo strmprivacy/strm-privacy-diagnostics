@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.0.0...v1.1.0) (2022-10-17)
+
+
+### Features
+
+* allow users to specify only QI columns to calculate k-anonymity, no SA required ([#2](https://github.com/strmprivacy/strm-privacy-diagnostics/issues/2)) ([8d2e48f](https://github.com/strmprivacy/strm-privacy-diagnostics/commit/8d2e48fdfe353a41d896e4296d04cdedab4c6d1e))
+
 # 1.0.0 (2022-09-19)
 
 
