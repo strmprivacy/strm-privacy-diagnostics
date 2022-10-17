@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.1.0...v1.1.1) (2022-10-17)
+
+
+### Bug Fixes
+
+* use default font on error ([13002b0](https://github.com/strmprivacy/strm-privacy-diagnostics/commit/13002b0f92f463339a022941440c883bced429a4))
+
 # [1.1.0](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.0.0...v1.1.0) (2022-10-17)
 
 
