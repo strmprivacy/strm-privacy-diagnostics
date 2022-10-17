@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.1.3...v1.1.4) (2022-10-17)
+
+
+### Bug Fixes
+
+* k-plots should have k,0 as plot origin ([#4](https://github.com/strmprivacy/strm-privacy-diagnostics/issues/4)) ([725f6e3](https://github.com/strmprivacy/strm-privacy-diagnostics/commit/725f6e3072d38244f09c843d277ad5d29cd91594))
+
 ## [1.1.3](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.1.2...v1.1.3) (2022-10-17)
 
 
