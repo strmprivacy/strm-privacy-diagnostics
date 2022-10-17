@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 from fpdf import FPDF
@@ -142,6 +143,8 @@ class Report(FPDF):
     def create(self, k, l, t, path='.'):
         try:
             self.add_font('Inter', fname='strmprivacy/diagnostics/report/Inter-V.ttf', uni=True)
+        except RuntimeError:
+            logging.info('Inter not found, using arial')
         finally:
             self.accept_page_break()
             self.add_page()
