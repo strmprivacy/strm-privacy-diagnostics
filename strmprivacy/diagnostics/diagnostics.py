@@ -36,9 +36,9 @@ class PrivacyDiagnostics:
         # k-Anonymity
         self.k = k_anonymity(self.df, qi) if 'k_anonymity' in metrics else None
         # l-Diversity
-        self.l = l_diversity(self.df, qi, sa) if 'l_diversity' in metrics else None
+        self.l = l_diversity(self.df, qi, sa) if 'l_diversity' in metrics and len(sa) > 0 else None
         # t-Closeness
-        self.t = t_closeness(self.df, qi, sa, sa_types) if 't_closeness' in metrics else None
+        self.t = t_closeness(self.df, qi, sa, sa_types) if 't_closeness' in metrics and len(sa) > 0 else None
 
     def create_report(self, qi: list[str], sa: list[str], sa_types: list[str] = [],
                       metrics=defaultMetrics, path: str = '.'):
@@ -72,7 +72,8 @@ class PrivacyDiagnostics:
         else:
             logging.warning("No sensitive attribute type was defined. Types will be inferred.")
         assert len(qi), "No quasi identifiers were defined. Please define at least one quasi identifier."
-        assert len(sa), "No sensitive attributes were defined. Please define at least one sensitive attributes."
+        if len(sa) == 0:
+            logging.warning("No sensitive attributes were defined. Only k-anonymity can be calculated.")
         assert not any(x in qi for x in sa), "A quasi identifier cannot also be a sensitive attribute."
         assert all(m in ['k_anonymity', 'l_diversity', 't_closeness'] for m in metrics), \
             "Unknown metrics specified. Valid types: [k_anonymity, l_diversity, t_closeness]"
