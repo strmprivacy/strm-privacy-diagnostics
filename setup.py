@@ -34,6 +34,6 @@ setup(
     name='strmprivacy-diagnostics',
     packages=find_namespace_packages(include=['strmprivacy.*']),
     namespace_packages=["strmprivacy"],
-    version='1.1.0',
+    version='1.1.1',
     zip_safe=False,
 )
