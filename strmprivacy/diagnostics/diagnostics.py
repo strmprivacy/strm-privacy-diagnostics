@@ -20,7 +20,7 @@ class PrivacyDiagnostics:
             self.df = self.df.sample(n=int(sample), random_state=0).reset_index(drop=True)
         self.df['indexed_row'] = self.df.index.values
 
-    def calculate_stats(self, qi: list[str], sa: list[str], sa_types=[],
+    def calculate_stats(self, qi: list[str], sa: list[str] = [], sa_types=[],
                         metrics=defaultMetrics):
         self.assert_arguments(qi, sa, sa_types, metrics)
         self.assert_columns(qi + sa)
@@ -40,7 +40,7 @@ class PrivacyDiagnostics:
         # t-Closeness
         self.t = t_closeness(self.df, qi, sa, sa_types) if 't_closeness' in metrics and len(sa) > 0 else None
 
-    def create_report(self, qi: list[str], sa: list[str], sa_types: list[str] = [],
+    def create_report(self, qi: list[str], sa: list[str] = [], sa_types: list[str] = [],
                       metrics=defaultMetrics, path: str = '.'):
         if ('k_anomyity' in metrics and self.k is None) or \
                 ('l_diversity' in metrics and self.l is None) or \

@@ -113,17 +113,19 @@ class Report(FPDF):
         self.ln(15)
 
     def create(self, k, l, t, path='.'):
-        self.add_font('Inter', fname='strmprivacy/diagnostics/report/Inter-V.ttf', uni=True)
-        self.accept_page_break()
-        self.add_page()
-        self.summation(k, l, t)
-        if k is not None:
-            self.k_metrics(k)
-        if l is not None:
-            self.l_metrics(l)
-        if t is not None:
-            self.t_metrics(t)
-        Path(path, 'report.py')
-        file_path = Path(path, 'STRM-Privacy-report.pdf')
-        self.output(str(file_path), 'F')
-        print(f"Report saved to {file_path}")
+        try:
+            self.add_font('Inter', fname='strmprivacy/diagnostics/report/Inter-V.ttf', uni=True)
+        finally:
+            self.accept_page_break()
+            self.add_page()
+            self.summation(k, l, t)
+            if k is not None:
+                self.k_metrics(k)
+            if l is not None:
+                self.l_metrics(l)
+            if t is not None:
+                self.t_metrics(t)
+            Path(path, 'report.py')
+            file_path = Path(path, 'STRM-Privacy-report.pdf')
+            self.output(str(file_path), 'F')
+            print(f"Report saved to {file_path}")
