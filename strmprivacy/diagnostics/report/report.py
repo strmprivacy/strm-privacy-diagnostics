@@ -22,7 +22,10 @@ class Report(FPDF):
         self.ln(20)
 
     def intro(self):
-        self.set_font('Inter', style="i", size=10)
+        try:
+            self.set_font('Inter', style="i", size=10)
+        except:
+            self.set_font('arial', style="i", size=10)
         self.write(h=5, txt=f"Using this report, you can assess if your privacy transformations are fit-for-purpose."
                             " K-anonymity, and l-diversity are methods to assess the degree of anonymity in a given dataset. T-closeness indicates the information loss in your data, and so its utility."
                             " The methods look at how unique a combination of datapoints is, giving you insight into the risk of re-identification: the less unique, the lower the probability you can find a single individual in the data."
