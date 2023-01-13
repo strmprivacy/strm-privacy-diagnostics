@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.1.4...v1.1.5) (2023-01-13)
+
+
+### Bug Fixes
+
+* add missing requirements to setup.py ([#5](https://github.com/strmprivacy/strm-privacy-diagnostics/issues/5)) ([8bc5481](https://github.com/strmprivacy/strm-privacy-diagnostics/commit/8bc548175b2be5b7ed0c7225e1feffb0d3fe0855))
+
 ## [1.1.4](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.1.3...v1.1.4) (2022-10-17)
 
 
