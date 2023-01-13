@@ -26,6 +26,8 @@ setup(
         "argparse>=1.4.0",
         "pathlib>=1.0.1",
         "seaborn>=0.11.2",
+        "setuptools~=58.0.4",
+        "scipy~=1.9.1"
     ],
     long_description=readme,
     long_description_content_type='text/markdown',
