@@ -14,7 +14,6 @@ class PrivacyDiagnostics:
 
     def __init__(self, file: str, sample: int = 0):
         self.k_anonymity, self.l_diversity, self.t_closeness = None, None, None
-        self._k, self._l, self._t = None, None, None
         self.file = file
         self.df = pd.read_csv(file, on_bad_lines='warn')
         if 0 < sample <= len(self.df):
@@ -84,14 +83,11 @@ class PrivacyDiagnostics:
 
     @property
     def stats(self):
-        stats = {}
-        if self.k_anonymity is not None:
-            stats['k'] = self.k
-        if self.l_diversity is not None:
-            stats['l'] = self.l
-        if self.t_closeness is not None:
-            stats['t'] = self.t
-        return stats
+        return {
+            'k': self.k if self.k_anonymity is not None else 0,
+            'l': self.l if self.l_diversity is not None else 0,
+            't': self.t if self.t_closeness is not None else 0
+        }
 
     @property
     def k(self):
