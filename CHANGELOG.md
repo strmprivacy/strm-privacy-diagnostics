@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.2.0...v1.2.1) (2023-01-23)
+
+
+### Bug Fixes
+
+* populate stats for not calculated result ([#7](https://github.com/strmprivacy/strm-privacy-diagnostics/issues/7)) ([b1ff294](https://github.com/strmprivacy/strm-privacy-diagnostics/commit/b1ff294dc82e63f6a59a2f5fdc2b9026944222e6))
+
 # [1.2.0](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.1.5...v1.2.0) (2023-01-23)
 
 
