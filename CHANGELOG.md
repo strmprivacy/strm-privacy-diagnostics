@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.1.5...v1.2.0) (2023-01-23)
+
+
+### Features
+
+* add stats property and properties for the metrics ([#6](https://github.com/strmprivacy/strm-privacy-diagnostics/issues/6)) ([b60af8e](https://github.com/strmprivacy/strm-privacy-diagnostics/commit/b60af8e4398a365bbb6d8aca12fc4aa78de01827))
+
 ## [1.1.5](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.1.4...v1.1.5) (2023-01-13)
 
 
