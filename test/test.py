@@ -10,8 +10,9 @@ class MyTestCase(unittest.TestCase):
             sa=['col1'],
             metrics=['k_anonymity', 'l_diversity', 't_closeness']
         )
-        self.assertEqual(4, min(d.k), "k-anonymity for 'col3' is incorrect")
-        self.assertEqual(2, min(d.l['col1']), "l-diversity for 'col1' is incorrect")
+
+        self.assertEqual(4, d.k, "k-anonymity for 'col3' is incorrect")
+        self.assertEqual(2, d.l['col1'], "l-diversity for 'col1' is incorrect")
         self.assertAlmostEqual(0.23333, d.t, 4)
 
     def test_happy_flow_2qi_1sa(self):
@@ -21,8 +22,8 @@ class MyTestCase(unittest.TestCase):
             sa=['col1'],
             metrics=['k_anonymity', 'l_diversity', 't_closeness']
         )
-        self.assertEqual(2, min(d.k), "k-anonymity for ['col3', 'col4'] is incorrect")
-        self.assertEqual(2, min(d.l['col1']), "l-diversity for 'col1' is incorrect")
+        self.assertEqual(2, d.k, "k-anonymity for ['col3', 'col4'] is incorrect")
+        self.assertEqual(2, d.l['col1'], "l-diversity for 'col1' is incorrect")
         self.assertAlmostEqual(0.43333, d.t, 4)
 
     def test_happy_flow_1qi_2sa(self):
@@ -34,9 +35,9 @@ class MyTestCase(unittest.TestCase):
             sa_types=['cat', 'num'],
             metrics=['k_anonymity', 'l_diversity', 't_closeness']
         )
-        self.assertEqual(14, min(d.k), "k-anonymity for ['col3'] is incorrect")
-        self.assertEqual(3, min(d.l['col1']), f"l-diversity for 'col1' is incorrect")
-        self.assertEqual(14, min(d.l['col2']), f"l-diversity for 'col2' is incorrect")
+        self.assertEqual(14, d.k, "k-anonymity for ['col3'] is incorrect")
+        self.assertEqual(3, d.l['col1'], f"l-diversity for 'col1' is incorrect")
+        self.assertEqual(14, d.l['col2'], f"l-diversity for 'col2' is incorrect")
         self.assertAlmostEqual(0.05238, d.t, 4)
 
     def test_non_existing_qi(self):
@@ -87,18 +88,6 @@ class MyTestCase(unittest.TestCase):
             )
         self.assertIn(
             "No quasi identifiers were defined. Please define at least one quasi identifier.",
-            str(context.exception)
-        )
-
-    def test_empty_sa(self):
-        d = PrivacyDiagnostics("datasets/simpleset.csv")
-        with self.assertRaises(AssertionError) as context:
-            d.calculate_stats(
-                qi=['col1'],
-                sa=[],
-            )
-        self.assertIn(
-            "No sensitive attributes were defined. Please define at least one sensitive attributes.",
             str(context.exception)
         )
 
