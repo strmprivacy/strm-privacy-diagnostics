@@ -39,4 +39,7 @@ d.create_report(
     qi=['qi1', 'qi2', ...],  # names of quasi identifier columns,
     sa=['sa1', 'sa2', ...],  # names of sensitive attributes
 )
+
+d.stats
+>>> {'k': xxx, 'l': {'col1': xxx, ...}, 't': xxx}
 ```
