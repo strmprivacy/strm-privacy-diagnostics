@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.2.1...v1.2.2) (2023-01-25)
+
+
+### Bug Fixes
+
+* python 3.8 compatibility ([#8](https://github.com/strmprivacy/strm-privacy-diagnostics/issues/8)) ([865a5b1](https://github.com/strmprivacy/strm-privacy-diagnostics/commit/865a5b1efd377da762613df69ad41e9175964ba7))
+
 ## [1.2.1](https://github.com/strmprivacy/strm-privacy-diagnostics/compare/v1.2.0...v1.2.1) (2023-01-23)
 
 
