@@ -2,18 +2,19 @@ import collections
 import pandas as pd
 import numpy as np
 from scipy.stats import wasserstein_distance as wd
+from typing import List, Dict
 
 
-def k_anonymity(df: pd.DataFrame, qi: list[str]) -> pd.Series:
+def k_anonymity(df: pd.DataFrame, qi: List[str]) -> pd.Series:
     return df[qi].value_counts()
 
 
-def l_diversity(df: pd.DataFrame, qi: list[str], sa: list[str]) -> dict[str, list[str]]:
+def l_diversity(df: pd.DataFrame, qi: List[str], sa: List[str]) -> Dict[str, List[str]]:
     df_grouped = df.groupby(qi, as_index=False)
     return {s: sorted([len(row['unique']) for _, row in df_grouped[s].agg(['unique']).iterrows()]) for s in sa}
 
 
-def t_closeness_cat(df: pd.DataFrame, qi: list[str], s: str) -> float:
+def t_closeness_cat(df: pd.DataFrame, qi: List[str], s: str) -> float:
     emd_max = 0
     equivalence_classes = [np.array(group['indexed_row']) for _, group in df.groupby(qi)]
     values = sorted(df[s].unique())
@@ -28,7 +29,7 @@ def t_closeness_cat(df: pd.DataFrame, qi: list[str], s: str) -> float:
     return emd_max
 
 
-def t_closeness_num(df: pd.DataFrame, qi: list[str], s: str) -> float:
+def t_closeness_num(df: pd.DataFrame, qi: List[str], s: str) -> float:
     emd_max = 0
     equivalence_classes = [np.array(group['indexed_row']) for _, group in df.groupby(qi)]
     values = df[s]
@@ -39,7 +40,7 @@ def t_closeness_num(df: pd.DataFrame, qi: list[str], s: str) -> float:
     return emd_max
 
 
-def t_closeness(df: pd.DataFrame, qi: list[str], sa: list[str], sa_types: list[str]) -> float:
+def t_closeness(df: pd.DataFrame, qi: List[str], sa: List[str], sa_types: List[str]) -> float:
     emd_max = 0
     for i, s in enumerate(sa):
         if sa_types[i] == "cat":

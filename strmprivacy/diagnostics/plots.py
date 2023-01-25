@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import List
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,7 +8,7 @@ import seaborn as sns
 sns.set()
 
 
-def plot(df: pd.DataFrame, k: list[str], metric: str, tmpdir: str):
+def plot(df: pd.DataFrame, k: List[str], metric: str, tmpdir: str):
     fig = plt.figure(figsize=(12, 8))
     sorted_uniques = list(sorted(np.unique(k)))
     plt.plot([min(sorted_uniques)] + sorted_uniques, [0] + list(np.cumsum([sum(x == k) * x for x in sorted_uniques]) * 100 / len(df)),
@@ -31,6 +32,6 @@ def plot_k_anonymity(df: pd.DataFrame, k: pd.Series, tmpdir: str):
     plot(df, list(k.values), "k-Anonymity", tmpdir)
 
 
-def plot_l_diversity(df: pd.DataFrame, sa: list[str], l: dict, tmpdir: str):
+def plot_l_diversity(df: pd.DataFrame, sa: List[str], l: dict, tmpdir: str):
     for s in sa:
         plot(df, l[s], f"l-Diversity ({s})", tmpdir)
